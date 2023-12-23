@@ -20,9 +20,9 @@ The following table gives an overview of the scripts and which actions / action 
 
 ## Support Development
 
-I developed these functions and the Action Group in my free time to help myself and you to integrate Drafts with Mastodon to improve workflows and remove friction from processes. 🚀
+I developed these scrtipts for actions and action groups in my free time to help myself and you to improve workflows and remove friction from processes. 🚀
 
-Draftodon is completely free to use for you. However if this Action Group is useful for you and supports your workflows you can give something back to support development.
+Anything is completely free to use for you. However if some of these are useful for you, you can give something back to support development.
 I enjoy a good coffee ☕️ (weather at home or in an actual coffee shop) and love pizza 🍕.
 You can choose the amount you want to donate on the platforms linked on [my website](https://flohgro.com/donate/)..
 
