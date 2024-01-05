@@ -1,4 +1,4 @@
-// fantastic event parser v1.0
+// fantastic event parser v1.1
 // Change to "GB" to interpret dates assuming dd/mm/yy format.
 const locale = language;
 
@@ -8,6 +8,9 @@ const alertRegex = /alert (\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|h
 const durationRegex = /(\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|hr|h)/;
 
 let createdEvents = 0
+
+const allCalendars = Calendar.getAllCalendars();
+const calendarsInaccessible = allCalendars == undefined ? true : false
 
 
 function makeEvent(inputString) {
@@ -39,16 +42,17 @@ function makeEvent(inputString) {
 		workingString = workingString.replace(result.text, "");
 	}
 
-	const allCalendars = Calendar.getAllCalendars();
 	const calendarStringExists = calendarRegex.test(workingString);
 	const calendarString = calendarStringExists ? calendarRegex.exec(workingString)[1].trim() : "";
 	var matchingCalendars = [];
+
 	for (let someCalendar of allCalendars) {
 		let findCal = new RegExp("^" + calendarString, "i");
 		if (findCal.test(someCalendar.title)) {
 			matchingCalendars.push(someCalendar)
 		}
 	}
+
 
 
 	workingString = workingString.replace("/" + calendarString, "");
@@ -210,22 +214,6 @@ function getSelectionOrDraft() {
 
 }
 
-const lines = getSelectionOrDraft().split("\n");
-let allSucceeded = true
-for (let line of lines) {
-	if (!makeEvent(line)) {
-		allSucceeded = false
-	}
-}
-if (allSucceeded) {
-	app.displaySuccessMessage("created " + createdEvents + " events")
-} else {
-	let msg = "created " + createdEvents + "/" + lines.length + " events"
-	app.displayWarningMessage(msg)
-	context.cancel(msg)
-}
-
-
 function confirmEvent(event, inputString, notificationString, allCalendars) {
 	let p = new Prompt()
 	p.title = "confirm event"
@@ -270,3 +258,35 @@ function prettyPrintEvent(event) {
 
 	return event.title + " (" + customFormat + ")" + event.location + "\n" + event.calendar.title
 }
+
+function run() {
+	if (calendarsInaccessible) {
+		let message = "ERROR:\n\nSeems like Drafts can't access your Calendars. Make sure that you allow \"Full Access\" in the settings.\n\n"
+		if (device.model == "Mac") {
+			message = message + "Open the System Settings App and navigate into \"Privacy & Security > Calendars\". Ensure that Drafts is enabled and \"Full Access\" is enabled in the options."
+		} else {
+			message = message + "Open the Settings App and and navigate into \"Privacy & Security > Calendars\". Ensure that Drafts is enabled and \"Full Access\" is enabled."
+		}
+		message = message + "If \"Full Access\" is already enabled please (1) disable the access, (2) quit Drafts, (3) enable the access again, (4) try running the Action again.\n If this doesn't help try rebooting your device. If it's still not working please reach out to @FlohGro in the Drafts Forum."
+		alert(message)
+		app.displayErrorMessage("calendars inaccessible")
+		context.fail("calendars inaccessible")
+		return
+	}
+	const lines = getSelectionOrDraft().split("\n");
+	let allSucceeded = true
+	for (let line of lines) {
+		if (!makeEvent(line)) {
+			allSucceeded = false
+		}
+	}
+	if (allSucceeded) {
+		app.displaySuccessMessage("created " + createdEvents + " events")
+	} else {
+		let msg = "created " + createdEvents + "/" + lines.length + " events"
+		app.displayWarningMessage(msg)
+		context.cancel(msg)
+	}
+}
+
+run()
