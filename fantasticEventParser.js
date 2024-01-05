@@ -1,5 +1,5 @@
-// fantastic event parser v1.1
-// Change to "GB" to interpret dates assuming dd/mm/yy format.
+// fantastic event parser v1.1 created by @FlohGro, adapted from "Fantastically Good Event Parser" by @pdavisonreiber
+
 const locale = language;
 
 const locationRegex = /(?: at | in )(.+)/;
