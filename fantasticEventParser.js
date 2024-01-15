@@ -3,7 +3,7 @@
 const locale = language;
 
 const locationRegex = /(?: at | in )(.+)/;
-const calendarRegex = /\/(\w+)/;
+const calendarRegex = /\/(\S*)/; //original regex: \/(\w+)
 const alertRegex = /alert (\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|hr|h)/;
 const durationRegex = /(\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|hr|h)/;
 
