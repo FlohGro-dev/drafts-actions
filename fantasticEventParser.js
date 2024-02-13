@@ -1,9 +1,15 @@
-// fantastic event parser v1.1 created by @FlohGro, adapted from "Fantastically Good Event Parser" by @pdavisonreiber
+// fantastic event parser v1.2 created by @FlohGro, adapted from "Fantastically Good Event Parser" by @pdavisonreiber
+
+// changelog v1.2
+// - more robust calendar lookup
+// - alerts for event are now displayed in confirm event prompt
+// - calendars are now sorted in the confirm event prompt
+
 
 const locale = language;
 
 const locationRegex = /(?: at | in )(.+)/;
-const calendarRegex = /\/(\S*)/; //original regex: \/(\w+)
+const calendarRegex = createCalendarRegex()
 const alertRegex = /alert (\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|hr|h)/;
 const durationRegex = /(\d+)(?: *)(minutes|minute|mins|min|m|hours|hour|hrs|hr|h)/;
 
@@ -217,7 +223,24 @@ function getSelectionOrDraft() {
 function confirmEvent(event, inputString, notificationString, allCalendars) {
 	let p = new Prompt()
 	p.title = "confirm event"
-	p.message = "\"" + inputString + "\"" + (notificationString ? "\n\n" + notificationString : "")
+
+	let alarmStrs = []
+	for (let alarm of event.alarms) {
+		alarmStrs.push("- " + prettyPrintSecondsDuration(alarm.relativeOffset) + " before")
+		if (alarm.absoluteDate) {
+			let date = new Date(alarm.absoluteDate)
+			alarmStrs.push("- at " + date.toISOString().split("T")[0] + " " + date.toISOString().split("T")[1].split(".")[0])
+		}
+	}
+
+	let alarmMessage = ""
+	if (alarmStrs.length > 0) {
+		alarmMessage = "\n\nAlerts:\n" + alarmStrs.join("\n")
+	}
+
+	p.message = "\"" + inputString + "\"" + (notificationString ? "\n\n" + notificationString : "") + alarmMessage
+
+
 
 	p.addTextField("title", "title", event.title, {})
 	p.addTextField("location", "location", event.location, {})
@@ -225,6 +248,7 @@ function confirmEvent(event, inputString, notificationString, allCalendars) {
 	p.addDatePicker("endDate", "end date", event.endDate, { "mode": "dateAndTime" })
 	p.addSwitch("isAllDay", "all day", event.isAllDay)
 	let colValues = allCalendars.map(cal => cal.title)
+	colValues.sort()
 	let colValue = colValues.indexOf(event.calendar.title)
 	p.addPicker("calendarIndex", "calendar", [colValues], [colValue])
 
@@ -258,6 +282,54 @@ function prettyPrintEvent(event) {
 
 	return event.title + " (" + customFormat + ")" + event.location + "\n" + event.calendar.title
 }
+
+function prettyPrintSecondsDuration(seconds) {
+	if (seconds < 0) {
+		seconds = seconds * (-1)
+	}
+	// Calculate hours, minutes, and remaining seconds
+	let hours = Math.floor(seconds / 3600);
+	let minutes = Math.floor((seconds % 3600) / 60);
+	let remainingSeconds = seconds % 60;
+
+	// Format the result
+	let formattedTime = "";
+	if (hours > 0) {
+		formattedTime += hours + "h ";
+	}
+	if (minutes > 0) {
+		formattedTime += minutes + "min ";
+	}
+	if (remainingSeconds > 0) {
+		formattedTime += remainingSeconds + "s";
+	}
+
+	return formattedTime;
+}
+
+function createCalendarRegex() {
+	const allCalendars = Calendar.getAllCalendars();
+	const regex = /[\^$.*+?()[\]{}|\\]/g;
+
+	let regexTest = ""
+	for (let cal of allCalendars) {
+		let title = cal.title
+		while (title.length > 1) {
+			regexTest = regexTest + (regexTest.length == 0 ? "" : "|") + title.replace(regex, "\\$&")
+			title = title.slice(0, -1)
+		}
+
+
+
+		//regexTest = regexTest + (regexTest.length == 0 ? "" : "|") + title.replace(regex, "\\$&")
+	}
+
+	regexTest = "\/(" + regexTest + ")"
+	let myRegex = new RegExp(regexTest)
+
+	return myRegex
+}
+
 
 function run() {
 	if (calendarsInaccessible) {
