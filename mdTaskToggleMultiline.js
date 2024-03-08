@@ -1,4 +1,5 @@
 // toggle or add checklist in selected lines
+// created by FlohGro
 
 const off = "[ ]";
 const on = "[x]";
