@@ -17,6 +17,7 @@ The following table gives an overview of the scripts and which actions / action 
 | [NotionDrafts](NotionDrafts.js) | [Draftotion](https://directory.getdrafts.com/g/2HH) | wip; stopped 🚫 |
 | [AI Tools Bulder](aiToolBuilder.js) | [AI Tools](https://directory.getdrafts.com/g/2PG) | released ✅ |
 | [create draft from event](createDraftFromCurrentEvent.js) | [create draft from event](https://directory.getdrafts.com/a/2QN) | released ✅ |
+| [md task toggler](mdTaskToggler.js) | [md task toggler](https://directory.getdrafts.com/a/2QU) | released ✅ |
 
 ---
 
