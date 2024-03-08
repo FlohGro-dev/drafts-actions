@@ -24,7 +24,7 @@ function getLenDiff(orgT, newT) {
 const lines = lnText.split('\n');
 
 const multipleLinesUsed = lines.length == 1 ? false : true
-
+const newLineAtTheEnd = editor.getTextInRange(lnStart, lnLen).endsWith("\n")
 const reg = /^(\s*[*-]?\s*)\[([xX ])?\]\s?(.*)/;
 let destState = false;
 
@@ -68,7 +68,9 @@ for (let line of lines) {
     }
 }
 
-lnText = outLines.join('\n') + "\n";
+lnText = outLines.join('\n')
+lnText += newLineAtTheEnd ? "\n" : "";
+
 editor.setTextInRange(lnStart, lnLen, lnText);
 
 if (multipleLinesUsed) {
