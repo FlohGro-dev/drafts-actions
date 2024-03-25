@@ -18,6 +18,7 @@ The following table gives an overview of the scripts and which actions / action 
 | [AI Tools Bulder](aiToolBuilder.js) | [AI Tools](https://directory.getdrafts.com/g/2PG) | released ✅ |
 | [create draft from event](createDraftFromCurrentEvent.js) | [create draft from event](https://directory.getdrafts.com/a/2QN) | released ✅ |
 | [md task toggler](mdTaskToggler.js) | [md task toggler](https://directory.getdrafts.com/a/2QU) | released ✅ |
+| [QuickLink Opener](quickLinkOpener.js) | [QuickLink Opener](https://directory.getdrafts.com/a/2Qo) | released ✅ |
 
 ---
 
