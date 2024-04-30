@@ -1,4 +1,7 @@
-// fantastic event parser v1.2 created by @FlohGro, adapted from "Fantastically Good Event Parser" by @pdavisonreiber
+// fantastic event parser v1.3 created by @FlohGro, adapted from "Fantastically Good Event Parser" by @pdavisonreiber
+
+// changelog v1.3
+// - allow specification of a default calendar (in the Drafts action)
 
 // changelog v1.2
 // - more robust calendar lookup
@@ -58,8 +61,6 @@ function makeEvent(inputString) {
 			matchingCalendars.push(someCalendar)
 		}
 	}
-
-
 
 	workingString = workingString.replace("/" + calendarString, "");
 
@@ -141,10 +142,18 @@ function makeEvent(inputString) {
 		} else if (matchingCalendars.length > 0) {
 			var calendar = matchingCalendars[0]
 		} else {
-			var calendar = Calendar.default()
+			if (defaultCalendar == "default") {
+				var calendar = Calendar.default()
+			} else {
+				var calendar = Calendar.default()
+
+			}
 		}
 	} else {
-		var calendar = Calendar.default()
+		var calendar = Calendar.find(defaultCalendar)
+		if (!calendar) {
+			var calendar = Calendar.default()
+		}
 	}
 
 	let notificationString = undefined
