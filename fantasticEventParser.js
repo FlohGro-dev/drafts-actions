@@ -8,7 +8,6 @@
 // - alerts for event are now displayed in confirm event prompt
 // - calendars are now sorted in the confirm event prompt
 
-
 const locale = language;
 
 const locationRegex = /(?: at | in )(.+)/;
@@ -136,20 +135,20 @@ function makeEvent(inputString) {
 
 	if (!titleString) { return }
 
+	let useFallbackCalendar = false;
 	if (calendarStringExists) {
 		if (Calendar.find(calendarString)) {
 			var calendar = Calendar.find(calendarString)
 		} else if (matchingCalendars.length > 0) {
 			var calendar = matchingCalendars[0]
 		} else {
-			if (defaultCalendar == "default") {
-				var calendar = Calendar.default()
-			} else {
-				var calendar = Calendar.default()
-
-			}
+			useFallbackCalendar = true;
 		}
 	} else {
+		useFallbackCalendar = true;
+	}
+
+	if (useFallbackCalendar) {
 		var calendar = Calendar.find(defaultCalendar)
 		if (!calendar) {
 			var calendar = Calendar.default()
@@ -271,7 +270,7 @@ function confirmEvent(event, inputString, notificationString, allCalendars) {
 		event.startDate = p.fieldValues["startDate"]
 		event.endDate = p.fieldValues["endDate"]
 		event.isAllDay = p.fieldValues["isAllDay"]
-		event.calendar = allCalendars[p.fieldValues["calendarIndex"]]
+		event.calendar = Calendar.find(colValues[p.fieldValues["calendarIndex"]])
 		return [true, event]
 
 	} else {
