@@ -88,7 +88,7 @@ function makeEvent(inputString) {
 	}
 
 	if (alertStringExists) {
-		var alert = alertQuantity * alertMultiplier;
+		var alarmForEvent = alertQuantity * alertMultiplier;
 		workingString = workingString.replace(alertStrings[0], "");
 	}
 
@@ -188,7 +188,7 @@ function makeEvent(inputString) {
 	}
 
 	if (alertStringExists) {
-		let alarm = Alarm.alarmWithOffset(-60 * alert);
+		let alarm = Alarm.alarmWithOffset(-60 * alarmForEvent);
 		event.addAlarm(alarm)
 	}
 
