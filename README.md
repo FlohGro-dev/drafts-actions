@@ -21,6 +21,7 @@ The following table gives an overview of the scripts and which actions / action 
 | [QuickLink Opener](quickLinkOpener.js) | [QuickLink Opener](https://directory.getdrafts.com/a/2Qo) | released ✅ |
 | [add/goto pin](addGotoPin.js) | [add/goto pin](https://directory.getdrafts.com/a/2SN) | released ✅ |
 | [open flagged draft](openFlaggedDraft.js) | [open flagged draft](https://directory.getdrafts.com/a/2ST) | released ✅ |
+| [open scope tagged draft](openScopeTaggedDraft.js) | [open scope tagged draft](https://directory.getdrafts.com/a/2S7) | released ✅ |
 
 ---
 
