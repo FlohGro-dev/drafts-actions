@@ -10,6 +10,9 @@ function isSeparatorLine(line) {
 	return /start\s*\|\s*[\-:\—|\s]+\s*\|\s*end/.test(testLine)
 }
 
+// save the version of the draft
+draft.saveVersion()
+
 let content = editor.getText();
 let selectedRange = editor.getSelectedLineRange()
 // move cursorPos to the middle of the selection / selected line
