@@ -23,6 +23,7 @@ The following table gives an overview of the scripts and which actions / action 
 | [open flagged draft](openFlaggedDraft.js) | [open flagged draft](https://directory.getdrafts.com/a/2ST) | released ✅ |
 | [open scope tagged draft](openScopeTaggedDraft.js) | [open scope tagged draft](https://directory.getdrafts.com/a/2S7) | released ✅ |
 | [format md table](formatMarkdownTable.js) | [format md table](https://directory.getdrafts.com/a/2Sz) | release ✅ |
+| [create scoped tag overview](scopedTagOverview.js) | not published | ⚠️ no action published |
 
 ---
 
