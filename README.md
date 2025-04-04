@@ -22,8 +22,9 @@ The following table gives an overview of the scripts and which actions / action 
 | [add/goto pin](addGotoPin.js) | [add/goto pin](https://directory.getdrafts.com/a/2SN) | released ✅ |
 | [open flagged draft](openFlaggedDraft.js) | [open flagged draft](https://directory.getdrafts.com/a/2ST) | released ✅ |
 | [open scope tagged draft](openScopeTaggedDraft.js) | [open scope tagged draft](https://directory.getdrafts.com/a/2S7) | released ✅ |
-| [format md table](formatMarkdownTable.js) | [format md table](https://directory.getdrafts.com/a/2Sz) | release ✅ |
+| [format md table](formatMarkdownTable.js) | [format md table](https://directory.getdrafts.com/a/2Sz) | released ✅ |
 | [create scoped tag overview](scopedTagOverview.js) | not published | ⚠️ no action published |
+| [import latest readwise highlights](importLatestReadwiseHighlights.js) | [import latest readwise highlights](https://directory.getdrafts.com/a/2Mt) | release ✅ |
 
 ---
 
