@@ -60,8 +60,9 @@ function run() {
                     let highlightsTexts = [];
                     for (let highlight of highlights) {
                         let tags = highlight.tags
+                        let originTags = highlight.tags.map((tag) => {return tag.name})
 
-                        const excludedTags = ["h1", "h2", "h3"];
+                        const excludedTags = [".h1", ".h2", ".h3"];
 
                         tags = tags.filter(tag => !excludedTags.includes(tag.name))
                                    .map((tag) => {
@@ -82,7 +83,7 @@ function run() {
                         let text = highlight.text
                         let highlightNote = highlight.note != "" ? " (" + highlight.note + ")" : ""
 
-                        if(highlightNote.includes(".h1")){
+                        if(originTags.includes(".h1")){
                             if(highlightNote === " (.h1)"){
                                 highlightsTexts.push("")
                                 highlightsTexts.push("### " + foundEmojis + text + " " + tags.join(", "))
@@ -92,7 +93,7 @@ function run() {
                                 highlightsTexts.push("### " + foundEmojis + text + " " + tags.join(", ") + highlightNote.replace(".h1", ""))
                                 highlightsTexts.push("")
                             }
-                        } else if(highlightNote.includes(".h2")){
+                        } else if(originTags.includes(".h2")){
                             if(highlightNote === " (.h2)"){
                                 highlightsTexts.push("")
                                 highlightsTexts.push("#### " + foundEmojis + text + " " + tags.join(", "))
@@ -102,7 +103,7 @@ function run() {
                                 highlightsTexts.push("#### " + foundEmojis + text + " " + tags.join(", ") + highlightNote.replace(".h2", ""))
                                 highlightsTexts.push("")
                             }
-                        } else if (highlightNote.includes(".h3")){
+                        } else if(originTags.includes(".h3")){
                             if(highlightNote === " (.h1)"){
                                 highlightsTexts.push("")
                                 highlightsTexts.push("##### " + foundEmojis + text + " " + tags.join(", "))
